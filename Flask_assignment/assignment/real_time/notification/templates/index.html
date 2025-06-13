@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Real-time Notifications</title>
+</head>
+<body>
+    <h2>Real-time Notification Demo</h2>
+    <input type="text" id="username" placeholder="Enter your name">
+    <input type="text" id="room" placeholder="Enter room name">
+    <button onclick="joinRoom()">Join Room</button>
+
+    <ul id="notifications"></ul>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.7.2/socket.io.min.js"></script>
+    <script>
+        var socket = io();
+
+        function joinRoom() {
+            var username = document.getElementById('username').value;
+            var room = document.getElementById('room').value;
+
+            socket.emit('join', {
+                username: username,
+                room: room
+            });
+        }
+
+        socket.on('notify', function(data) {
+            var li = document.createElement('li');
+            li.textContent = data.msg;
+            document.getElementById('notifications').appendChild(li);
+        });
+    </script>
+</body>
+</html>

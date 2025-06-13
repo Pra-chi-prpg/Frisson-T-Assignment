@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Real-Time Counter</title>
+    <script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
+</head>
+<body>
+    <h1>Real-Time Counter</h1>
+    <h2 id="counter">{{ count }}</h2>
+    <button onclick="increment()">Increment</button>
+
+    <script>
+        const socket = io();
+
+        socket.on('update_count', function(new_count) {
+            document.getElementById('counter').textContent = new_count;
+        });
+
+        function increment() {
+            socket.emit('increment');
+        }
+    </script>
+</body>
+</html>

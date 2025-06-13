@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head><title>Chat</title></head>
+<body>
+    <h2>Real-time Chat</h2>
+    <input id="message" autocomplete="off"><button onclick="sendMessage()">Send</button>
+    <ul id="messages"></ul>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.7.2/socket.io.min.js"></script>
+    <script>
+        var socket = io();
+        socket.on('message', function(msg) {
+            var item = document.createElement('li');
+            item.textContent = msg;
+            document.getElementById('messages').appendChild(item);
+        });
+        function sendMessage() {
+            var msg = document.getElementById('message').value;
+            socket.send(msg);
+            document.getElementById('message').value = '';
+        }
+    </script>
+</body>
+</html>
