@@ -9,8 +9,8 @@ import os
 
 def setup_driver():
     options = uc.ChromeOptions()
-    # ❗ Turn off headless mode during testing
-    # options.add_argument('--headless')  # Disable for now
+    # Turn off headless mode during testing
+    # options.add_argument('--headless')  
     options.add_argument('--disable-blink-features=AutomationControlled')
     options.add_argument('user-agent=Mozilla/5.0')
     return uc.Chrome(options=options)
@@ -23,7 +23,7 @@ def scrape_google(query):
     
     try:
         driver.get(f"https://www.google.com/search?q={query}")
-        time.sleep(7)  # Wait more to load full content
+        time.sleep(7) 
         
         # Scroll down to load more results
         driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
@@ -51,7 +51,7 @@ def scrape_google(query):
         try:
             driver.quit()
         except:
-            pass  # Safely suppress the WinError 6
+            pass  
 
     return data
 
@@ -59,8 +59,8 @@ def save_to_csv(data):
     df = pd.DataFrame(data)
     filepath = os.path.abspath("search.csv")
     df.to_csv(filepath, index=False)
-    print(f"🔍 Total results scraped: {len(data)}")
-    print(f"✅ Scraping completed. Saved to: {filepath}")
+    print(f"Total results scraped: {len(data)}")
+    print(f" Scraping completed. Saved to: {filepath}")
 
 def main():
     query = "Top IT companies in Ghaziabad site=justdial.com"
